@@ -92,7 +92,7 @@ Contributions are welcome! Please fork the repository and submit a pull request.
 
 ## Contact
 
-For questions or collaboration, please reach out to [your-email@example.com].
+For questions or collaboration, please reach out to [zaman.khan123rd@gmail.com].
 
 ---
 
