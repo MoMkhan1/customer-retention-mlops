@@ -73,11 +73,20 @@ customer-retention-mlops/
 └── README.md # Project documentation and instructions
 
 
+### 📊 Visualization
+
+The `src/visualization/classification_visualizer.py` script generates classification visualizations to support model interpretation.  
+Output graphs are saved in the `graphs/` directory.
+
+Example output:
+- `confusion_matrix.png`
+- `roc_curve.png`
+
 ## How to Run
 
 1. Clone the repository:
 
-git clone https://github.com/yourusername/customer-retention-mlops.git
+git clone https://github.com/MoMKhan1/customer-retention-mlops.git
 
 
 2. Set up your environment (Python, Java, Docker, Kubernetes, Jenkins).
