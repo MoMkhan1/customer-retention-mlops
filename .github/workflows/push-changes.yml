@@ -1,0 +1,38 @@
+name: Auto Commit and Push Changes
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  commit-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up git config
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+
+    - name: Make your changes
+      run: |
+        echo "You can make changes here or before this step."
+
+    - name: Commit changes
+      run: |
+        git add .
+        git commit -m "Update evaluation images [skip ci]" || echo "No changes to commit"
+
+    - name: Push changes
+      env:
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}
+        git push origin HEAD:${{ github.ref }}
