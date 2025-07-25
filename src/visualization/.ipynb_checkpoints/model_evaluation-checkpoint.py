@@ -23,8 +23,7 @@ def train_and_evaluate_model():
     print(f"Model Accuracy: {accuracy:.2f}")
 
     # Create graphs folder
-    graph_dir = os.path.join(os.getcwd(), 'docs')
-    #graph_dir = os.path.join(os.getcwd(), 'graphs')
+    graph_dir = os.path.join(os.getcwd(), 'graphs')
     os.makedirs(graph_dir, exist_ok=True)
 
     # Confusion Matrix

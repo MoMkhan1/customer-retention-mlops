@@ -1,0 +1,3 @@
+Model Accuracy: 0.85
+Confusion matrix saved to: /app/graphs/confusion_matrix.png
+ROC curve saved to: /app/graphs/roc_curve.png
