@@ -1,0 +1,36 @@
+name: Auto Commit and Push Changes
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**/*.png'
+  schedule:
+    - cron: '0 0 * * 0'
+  workflow_run:
+    workflows: ["Train Model"]
+    types:
+      - completed
+
+jobs:
+  auto-commit:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up git config
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Update evaluation images [skip ci]" || echo "No changes to commit"
+
+      - name: Push changes
+        run: git push origin main
