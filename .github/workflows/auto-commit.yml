@@ -4,10 +4,16 @@ on:
   push:
     branches:
       - main
+    # Only run on certain file types
     paths:
       - '**/*.png'
+      - '**/*.csv'
+      - '**/*.pdf'
+      - '**/*.txt'
+
   schedule:
-    - cron: '0 0 * * 0'
+    - cron: '0 0 * * 0'  # Every Sunday at midnight UTC
+
   workflow_run:
     workflows: ["Train Model"]
     types:
@@ -19,18 +25,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up git config
+      - name: Set up Git config
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
-      - name: Commit changes
+      - name: Show git status before commit (logging)
         run: |
-          git add .
-          git commit -m "Update evaluation images [skip ci]" || echo "No changes to commit"
+          echo "Changes to be committed:"
+          git status
 
-      - name: Push changes
+      - name: Auto-commit specific file types
+        run: |
+          git add '*.png' '*.csv' '*.pdf' '*.txt' || echo "No matching files"
+          git commit -m "Auto-update data and figures [skip ci]" || echo "No changes to commit"
+
+      - name: Push changes (skip CI trigger)
         run: git push origin main
