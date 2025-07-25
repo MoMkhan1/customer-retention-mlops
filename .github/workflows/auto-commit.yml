@@ -1,6 +1,8 @@
 name: Auto Commit and Push Changes
 
 on:
+  workflow_dispatch:  # ✅ Allows manual runs from GitHub UI
+
   push:
     branches:
       - main
@@ -32,6 +34,10 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
+
+      - name: Generate report
+        run: |
+          python scripts/generate_report.py
 
       - name: Show git status before commit (logging)
         run: |
