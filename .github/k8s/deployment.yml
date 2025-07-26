@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-model-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ml-model
+  template:
+    metadata:
+      labels:
+        app: ml-model
+    spec:
+      containers:
+      - name: ml-model-container
+        image: momkhan1/ml-model:latest   # Updated with your DockerHub username
+        imagePullPolicy: Always            # Always pull latest image from DockerHub
+        ports:
+        - containerPort: 5000              # Your app's listening port
